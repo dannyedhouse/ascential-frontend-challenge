@@ -12,14 +12,13 @@ import {
   Image,
   LinkBox,
   LinkOverlay,
-  IconButton,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "./Breadcrumbs";
 import Error from "./Error";
 import { useSeatGeek } from "../utils/useSeatGeek";
 import { formatDateTime } from "../utils/formatDateTime";
-import { StarIcon } from "@chakra-ui/icons";
+import FavouritesButton from "./FavouritesButton";
 
 export interface Performers {
   image: string;
@@ -82,24 +81,18 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
     _hover={{ bg: "gray.100" }}
   >
     <Image src={event.performers[0].image} />
-    <IconButton
-      isRound={true}
-      variant="solid"
-      colorScheme="yellow"
-      aria-label="Add to favourites"
-      fontSize="20px"
-      title="Add to favourites"
-      icon={<StarIcon />}
-      position="absolute"
-      top="8px"
-      right="8px"
-    />
+
     <CardBody>
       <Stack spacing="2">
         <Heading size="md">
           <LinkOverlay as={Link} to={`/events/${event.id}`}>
             {event.short_title}
           </LinkOverlay>
+          <FavouritesButton
+            id={event.id}
+            name={event.short_title}
+            type={"event"}
+          />
         </Heading>
 
         <Box>
