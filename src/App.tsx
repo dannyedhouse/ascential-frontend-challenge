@@ -1,11 +1,13 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
-import Venues from './components/Venues';
-import Venue from './components/Venue';
-import Events from './components/Events';
-import Event from './components/Event';
-import { Flex, Heading } from '@chakra-ui/react';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Venues from "./components/Venues";
+import Venue from "./components/Venue";
+import Events from "./components/Events";
+import Event from "./components/Event";
+import { Button, Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import DrawerUI from "./components/DrawerUI";
+import { StarIcon } from "@chakra-ui/icons";
 
 const App: React.FC = () => (
   <Router>
@@ -20,15 +22,25 @@ const App: React.FC = () => (
   </Router>
 );
 
-const Nav: React.FC = () => (
-  <Flex
-    as="nav"
-    bg="gray.700"
-    color="white"
-    padding="24px"
-  >
-    <Heading size="md">Ascential Front End Challenge</Heading>
-  </Flex>
-);
+const Nav: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <Flex
+      as="nav"
+      bg="gray.700"
+      color="white"
+      padding="24px"
+      alignItems={"center"}
+      justifyContent={"space-between"}
+    >
+      <Heading size="md">Ascential Front End Challenge</Heading>
+      <Button onClick={onOpen} leftIcon={<StarIcon />} colorScheme="yellow">
+        Favourites
+      </Button>
+      <DrawerUI isOpen={isOpen} onClose={onClose} />
+    </Flex>
+  );
+};
 
 export default App;
