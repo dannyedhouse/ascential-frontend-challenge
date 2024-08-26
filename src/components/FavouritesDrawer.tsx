@@ -11,6 +11,12 @@ import {
   Text,
   ListItem,
   IconButton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Flex,
 } from "@chakra-ui/react";
 import React from "react";
 import { useFavourites } from "../context/FavouritesContext";
@@ -34,6 +40,9 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
     onClose();
   }
 
+  const eventFavourites = favourites.filter((item) => item.type === "event");
+  const venueFavourites = favourites.filter((item) => item.type === "venue");
+
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
@@ -48,23 +57,66 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
               an event or venue to add one.
             </Text>
           ) : (
-            <List gap={2}>
-              {favourites.map((item) => (
-                <ListItem key={item.id}>
-                  <Button
-                    variant="link"
-                    onClick={() => onNavigate(item.id, item.type)}
-                  >
-                    {item.name}
-                  </Button>
-                  <IconButton
-                    onClick={() => removeFavourite(item.id)}
-                    icon={<DeleteIcon />}
-                    aria-label={"Remove favourite"}
-                  ></IconButton>
-                </ListItem>
-              ))}
-            </List>
+            <Tabs variant="enclosed">
+              <TabList>
+                <Tab>Events</Tab>
+                <Tab>Venues</Tab>
+              </TabList>
+
+              <TabPanels>
+                <TabPanel>
+                  {eventFavourites.length === 0 ? (
+                    <Text align={"center"}>No favourite events yet.</Text>
+                  ) : (
+                    <List gap={2}>
+                      {eventFavourites.map((item) => (
+                        <ListItem key={item.id}>
+                          <Flex justify="space-between" align="left">
+                            <Button
+                              variant="link"
+                              onClick={() => onNavigate(item.id, "event")}
+                            >
+                              <Text isTruncated> {item.name}</Text>
+                            </Button>
+                            <IconButton
+                              onClick={() => removeFavourite(item.id)}
+                              icon={<DeleteIcon />}
+                              aria-label={"Remove favourite"}
+                            />
+                          </Flex>
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                </TabPanel>
+
+                <TabPanel>
+                  {venueFavourites.length === 0 ? (
+                    <Text align={"center"}>No favourite venues yet.</Text>
+                  ) : (
+                    <List gap={2}>
+                      {venueFavourites.map((item) => (
+                        <ListItem key={item.id}>
+                          <Flex justify="space-between" align="left">
+                            <Button
+                              variant="link"
+                              onClick={() => onNavigate(item.id, "venue")}
+                            >
+                              {item.name}
+                            </Button>
+                            <IconButton
+                              onClick={() => removeFavourite(item.id)}
+                              icon={<DeleteIcon />}
+                              aria-label={"Remove favourite"}
+                            />
+                          </Flex>
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
           )}
         </DrawerBody>
 
