@@ -28,9 +28,6 @@ const FavouritesButton: React.FC<FavouritesItem> = ({
       fontSize="20px"
       title="Add to favourites"
       icon={<StarIcon />}
-      position="absolute"
-      top="8px"
-      right="8px"
     />
   );
 };

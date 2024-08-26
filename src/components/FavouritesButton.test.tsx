@@ -16,14 +16,14 @@ describe("FavouritesButton", () => {
   it("should render FavouritesButton", () => {
     mockUseFavourites.mockReturnValue({
       favourites: [
-        { id: "1", name: "Event 1", type: "event" },
-        { id: "2", name: "Venue 1", type: "venue" },
+        { id: 1, name: "Event 1", type: "event" },
+        { id: 2, name: "Venue 1", type: "venue" },
       ],
       addFavourite: mockAddFavourite,
       removeFavourite: mockRemoveFavourite,
     });
 
-    render(<FavouritesButton id="1" name="Event 1" type="event" />);
+    render(<FavouritesButton id={1} name="Event 1" type="event" />);
 
     const button = screen.getByRole("button", { name: /add to favourites/i });
     expect(button).toBeInTheDocument();
@@ -32,16 +32,16 @@ describe("FavouritesButton", () => {
 
   it("should add to favourites when event/venue clicked and not currently a favourite", () => {
     mockUseFavourites.mockReturnValue({
-      favourites: [{ id: "1", name: "Event 1", type: "event" }],
+      favourites: [{ id: 1, name: "Event 1", type: "event" }],
       addFavourite: mockAddFavourite,
       removeFavourite: mockRemoveFavourite,
     });
 
-    render(<FavouritesButton id="2" name="Event 2" type="event" />);
+    render(<FavouritesButton id={2} name="Event 2" type="event" />);
 
     fireEvent.click(screen.getByRole("button", { name: /add to favourites/i }));
     expect(mockAddFavourite).toHaveBeenCalledWith({
-      id: "2",
+      id: 2,
       name: "Event 2",
       type: "event",
     });
@@ -50,15 +50,15 @@ describe("FavouritesButton", () => {
   it("should remove from favourites when clicked and currently a favourite", () => {
     mockUseFavourites.mockReturnValue({
       favourites: [
-        { id: "1", name: "Event 1", type: "event" },
-        { id: "2", name: "Venue 1", type: "venue" },
+        { id: 1, name: "Event 1", type: "event" },
+        { id: 2, name: "Venue 1", type: "venue" },
       ],
       addFavourite: mockAddFavourite,
       removeFavourite: mockRemoveFavourite,
     });
 
-    render(<FavouritesButton id="1" name="Venue 1" type="venue" />);
+    render(<FavouritesButton id={1} name="Venue 1" type="venue" />);
     fireEvent.click(screen.getByRole("button", { name: /add to favourites/i }));
-    expect(mockRemoveFavourite).toHaveBeenCalledWith("1");
+    expect(mockRemoveFavourite).toHaveBeenCalledWith(1);
   });
 });

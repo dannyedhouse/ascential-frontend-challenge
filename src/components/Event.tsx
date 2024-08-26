@@ -19,6 +19,7 @@ import Error from './Error';
 import { useSeatGeek } from '../utils/useSeatGeek';
 import { formatDateTime } from '../utils/formatDateTime';
 import { type Venue } from './Events';
+import FavouritesButton from "./FavouritesButton";
 
 interface EventInfoProps {
   event: {
@@ -26,7 +27,7 @@ interface EventInfoProps {
     datetime_utc: Date;
     venue: Venue;
     url: string;
-  }
+  };
 }
 
 const Event: React.FC = () => {
@@ -40,20 +41,25 @@ const Event: React.FC = () => {
       <Flex justifyContent="center" alignItems="center" minHeight="50vh">
         <Spinner size="lg" />
       </Flex>
-    )
+    );
   }
 
   return (
     <>
-      <Breadcrumbs 
+      <Breadcrumbs
         items={[
-          { label: 'Home', to: '/' },
-          { label: 'Events', to: '/events' },
+          { label: "Home", to: "/" },
+          { label: "Events", to: "/events" },
           { label: event.short_title },
-        ]} 
+        ]}
       />
-      <Flex bgColor='gray.200' p={[4, 6]}>
+      <Flex bgColor="gray.200" p={[4, 6]} justify={"space-between"}>
         <Heading>{event.short_title}</Heading>
+        <FavouritesButton
+          id={event.id}
+          name={event.short_title}
+          type={"event"}
+        />
       </Flex>
       <EventInfo event={event} />
     </>

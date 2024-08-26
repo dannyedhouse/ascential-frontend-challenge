@@ -34,8 +34,8 @@ describe("FavouritesDrawer", () => {
 
     mockUseFavourites.mockReturnValue({
       favourites: [
-        { id: "1", name: "Event 1", type: "event" },
-        { id: "2", name: "Venue 1", type: "venue" },
+        { id: 1, name: "Event 1", type: "event" },
+        { id: 2, name: "Venue 1", type: "venue" },
       ],
       addFavourite: jest.fn(),
       removeFavourite: mockRemoveFavourite,
@@ -49,7 +49,7 @@ describe("FavouritesDrawer", () => {
     fireEvent.click(
       screen.getAllByRole("button", { name: /remove favourite/i })[0]
     );
-    expect(mockRemoveFavourite).toHaveBeenCalledWith("1");
+    expect(mockRemoveFavourite).toHaveBeenCalledWith(1);
   });
 
   it("should navigate to the event/venue when clicking on the favourite item in the list", () => {
@@ -57,8 +57,8 @@ describe("FavouritesDrawer", () => {
 
     mockUseFavourites.mockReturnValue({
       favourites: [
-        { id: "1", name: "Event 1", type: "event" },
-        { id: "2", name: "Venue 1", type: "venue" },
+        { id: 1, name: "Event 1", type: "event" },
+        { id: 2, name: "Venue 1", type: "venue" },
       ],
       addFavourite: jest.fn(),
       removeFavourite: jest.fn(),

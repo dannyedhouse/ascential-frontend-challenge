@@ -31,7 +31,7 @@ export interface Venue {
 }
 
 export interface EventProps {
-  id: string;
+  id: number;
   short_title: string;
   datetime_utc: Date;
   performers: Performers[];
@@ -84,7 +84,13 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
 
     <CardBody>
       <Stack spacing="2">
-        <Heading size="md">
+        <Heading
+          gap={2}
+          size="md"
+          display={"flex"}
+          justifyContent={"space-between"}
+          alignContent={"space-between"}
+        >
           <LinkOverlay as={Link} to={`/events/${event.id}`}>
             {event.short_title}
           </LinkOverlay>

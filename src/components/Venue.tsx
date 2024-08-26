@@ -15,20 +15,21 @@ import {
 import Breadcrumbs from './Breadcrumbs';
 import Error from './Error';
 import { useSeatGeek } from '../utils/useSeatGeek';
+import FavouritesButton from "./FavouritesButton";
 
 interface StatsProps {
   venue: {
     city: string;
     country: string;
     capacity: number;
-  }
+  };
 }
 
 interface MapProps {
   location: {
     lat: number;
     lon: number;
-  }
+  };
 }
 
 const Venue: React.FC = () => {
@@ -42,20 +43,21 @@ const Venue: React.FC = () => {
       <Flex justifyContent="center" alignItems="center" minHeight="50vh">
         <Spinner size="lg" />
       </Flex>
-    )
+    );
   }
 
   return (
     <>
       <Breadcrumbs
         items={[
-          { label: 'Home', to: '/' },
-          { label: 'Venues', to: '/venues' },
+          { label: "Home", to: "/" },
+          { label: "Venues", to: "/venues" },
           { label: venue.name },
-        ]} 
+        ]}
       />
-      <Flex bgColor="gray.200" p={[4, 6]}>
+      <Flex bgColor="gray.200" p={[4, 6]} justify={"space-between"}>
         <Heading>{venue.name}</Heading>
+        <FavouritesButton id={venue.id} name={venue.name_v2} type={"venue"} />
       </Flex>
       <Stats venue={venue} />
       <Map location={venue.location} />

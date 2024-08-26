@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface FavouritesItem {
-  id: string;
+  id: number;
   name: string;
   type: "event" | "venue";
 }
@@ -9,7 +9,7 @@ export interface FavouritesItem {
 interface FavouritesContext {
   favourites: FavouritesItem[];
   addFavourite: (favouritesItem: FavouritesItem) => void;
-  removeFavourite: (itemId: string) => void;
+  removeFavourite: (itemId: number) => void;
 }
 
 // Context
@@ -40,7 +40,7 @@ export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
     setFavourites((prev) => [...prev, item]);
   };
 
-  const removeFavourite = (itemId: string) => {
+  const removeFavourite = (itemId: number) => {
     setFavourites((prev) => prev.filter((item) => item.id !== itemId));
   };
 

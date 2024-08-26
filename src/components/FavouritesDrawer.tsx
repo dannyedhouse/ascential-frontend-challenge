@@ -29,7 +29,7 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
   const { favourites, removeFavourite } = useFavourites();
   const navigate = useNavigate();
 
-  function onNavigate(id: string, type: "event" | "venue") {
+  function onNavigate(id: number, type: "event" | "venue") {
     navigate(`/${type}s/${id}`);
     onClose();
   }
