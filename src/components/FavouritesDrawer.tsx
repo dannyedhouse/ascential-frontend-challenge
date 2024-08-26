@@ -70,7 +70,7 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
                   ) : (
                     <List gap={2}>
                       {eventFavourites.map((item) => (
-                        <ListItem key={item.id}>
+                        <ListItem key={item.id} p={1}>
                           <Flex justify="space-between" align="left">
                             <Button
                               variant="link"

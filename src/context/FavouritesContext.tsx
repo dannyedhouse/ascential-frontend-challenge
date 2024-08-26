@@ -23,14 +23,10 @@ interface FavouritesProviderProps {
 
 // Provider
 export const FavouritesProvider = ({ children }: FavouritesProviderProps) => {
-  const [favourites, setFavourites] = useState<FavouritesItem[]>([]);
-
-  useEffect(() => {
-    const savedFavourites = localStorage.getItem("favourites");
-    if (savedFavourites) {
-      setFavourites(JSON.parse(savedFavourites));
-    }
-  }, []);
+  const [favourites, setFavourites] = useState<FavouritesItem[]>(() => {
+    const storedFavourites = localStorage.getItem("favourites");
+    return storedFavourites ? JSON.parse(storedFavourites) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem("favourites", JSON.stringify(favourites));
