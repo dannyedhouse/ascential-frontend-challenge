@@ -6,7 +6,7 @@ import Venue from "./components/Venue";
 import Events from "./components/Events";
 import Event from "./components/Event";
 import { Button, Flex, Heading, useDisclosure } from "@chakra-ui/react";
-import DrawerUI from "./components/DrawerUI";
+import FavouritesDrawer from "./components/FavouritesDrawer";
 import { StarIcon } from "@chakra-ui/icons";
 import { FavouritesProvider } from "./context/FavouritesContext";
 
@@ -41,7 +41,7 @@ const Nav: React.FC = () => {
       <Button onClick={onOpen} leftIcon={<StarIcon />} colorScheme="yellow">
         Favourites
       </Button>
-      <DrawerUI isOpen={isOpen} onClose={onClose} />
+      <FavouritesDrawer isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };

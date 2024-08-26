@@ -22,7 +22,10 @@ interface DrawerProps {
   onClose: () => void;
 }
 
-const DrawerUI: React.FC<DrawerProps> = ({ isOpen, onClose }: DrawerProps) => {
+const FavouritesDrawer: React.FC<DrawerProps> = ({
+  isOpen,
+  onClose,
+}: DrawerProps) => {
   const { favourites, removeFavourite } = useFavourites();
   const navigate = useNavigate();
 
@@ -40,7 +43,7 @@ const DrawerUI: React.FC<DrawerProps> = ({ isOpen, onClose }: DrawerProps) => {
 
         <DrawerBody>
           {favourites.length === 0 ? (
-            <Text align={"center"}>
+            <Text align={"center"} data-testid="empty-favourites-drawer">
               You currently have no favourites! Click on the star icon next to
               an event or venue to add one.
             </Text>
@@ -57,7 +60,7 @@ const DrawerUI: React.FC<DrawerProps> = ({ isOpen, onClose }: DrawerProps) => {
                   <IconButton
                     onClick={() => removeFavourite(item.id)}
                     icon={<DeleteIcon />}
-                    aria-label={"remove favourite"}
+                    aria-label={"Remove favourite"}
                   ></IconButton>
                 </ListItem>
               ))}
@@ -75,4 +78,4 @@ const DrawerUI: React.FC<DrawerProps> = ({ isOpen, onClose }: DrawerProps) => {
   );
 };
 
-export default DrawerUI;
+export default FavouritesDrawer;
