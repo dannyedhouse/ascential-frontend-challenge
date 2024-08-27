@@ -139,7 +139,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
           <Text fontSize="sm" color="gray.600">
             {event.venue.name_v2}
           </Text>
-          <Text fontSize="sm" color="gray.600">
+          <Text fontSize="sm" color="gray.600" data-testid="event-location">
             {event.venue.display_location}
           </Text>
         </Box>

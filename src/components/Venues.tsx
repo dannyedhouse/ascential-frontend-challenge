@@ -118,7 +118,7 @@ const VenueItem: React.FC<VenuItemProps> = ({ venue }) => (
         </LinkOverlay>
         <FavouritesButton id={venue.id} name={venue.name_v2} type={"venue"} />
       </Heading>
-      <Text fontSize="sm" color="gray.500">
+      <Text fontSize="sm" color="gray.500" data-testid="venue-location">
         {venue.display_location}
       </Text>
     </Box>

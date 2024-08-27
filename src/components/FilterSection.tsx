@@ -43,6 +43,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
         >
           <Select
             w={"50%"}
+            data-testid="location-select"
             placeholder="All locations"
             value={filterOption}
             onChange={(e) => setFilterOption(e.target.value)}
@@ -58,6 +59,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
           <Select
             w={"50%"}
+            data-testid="sort-select"
             placeholder="Sort by..."
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
