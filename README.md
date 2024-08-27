@@ -2,12 +2,15 @@
 
 ### [👉 Go to the challenge 👈](./CHALLENGE.md)
 
-### [🚀 See the app in action 🚀](https://ascential-frontend-challenge.development.platform-team.com)
+### [🚀 See the app in action 🚀](https://ascential-frontend-challenge.vercel.app/)
 
 ## Develop
 - create `.env` file based on `.env.sample`
 - run `yarn` to install dependencies
 - run `yarn dev` to start development environment
+
+## Test
+- run `yarn test` to run the Jest test suite.
 
 ## Build
 - run `yarn` to install dependencies
