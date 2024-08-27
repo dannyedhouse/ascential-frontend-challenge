@@ -73,10 +73,12 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
                         <ListItem key={item.id} p={1}>
                           <Flex justify="space-between" align="left">
                             <Button
+                              textDecoration="underline"
+                              colorScheme="black"
                               variant="link"
                               onClick={() => onNavigate(item.id, "event")}
                             >
-                              <Text isTruncated> {item.name}</Text>
+                              <Text isTruncated>{item.name}</Text>
                             </Button>
                             <IconButton
                               isRound
@@ -100,10 +102,12 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
                         <ListItem key={item.id} p={1}>
                           <Flex justify="space-between" align="left">
                             <Button
+                              textDecoration="underline"
+                              colorScheme="black"
                               variant="link"
                               onClick={() => onNavigate(item.id, "venue")}
                             >
-                              {item.name}
+                              <Text isTruncated>{item.name}</Text>
                             </Button>
                             <IconButton
                               isRound
