@@ -114,7 +114,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
     borderColor="gray.200"
     _hover={{ bg: "gray.100" }}
   >
-    <Image src={event.performers[0].image} />
+    <Image src={event.performers[0].image} alt={`${event.short_title}`} />
 
     <CardBody>
       <Stack spacing="2">

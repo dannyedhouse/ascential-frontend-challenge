@@ -43,6 +43,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
         >
           <Select
             w={"50%"}
+            aria-label="select by location"
             data-testid="location-select"
             placeholder="All locations"
             value={filterOption}
@@ -59,6 +60,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
           <Select
             w={"50%"}
+            aria-label="sort by following options"
             data-testid="sort-select"
             placeholder="Sort by..."
             value={sortOption}
