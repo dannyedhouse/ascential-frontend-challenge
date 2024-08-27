@@ -19,6 +19,8 @@ import Error from "./Error";
 import { useSeatGeek } from "../utils/useSeatGeek";
 import { formatDateTime } from "../utils/formatDateTime";
 import FavouritesButton from "./FavouritesButton";
+import FilterSection from "./FilterSection";
+import useFilteredEvents from "../hooks/useFilteredEvents";
 
 export interface Performers {
   image: string;
@@ -49,6 +51,16 @@ const Events: React.FC = () => {
     per_page: "24",
   });
 
+  const {
+    filteredEvents,
+    searchQuery,
+    setSearchQuery,
+    filterOption,
+    setFilterOption,
+    sortOption,
+    setSortOption,
+  } = useFilteredEvents(data?.events);
+
   if (error) return <Error />;
 
   if (!data) {
@@ -62,11 +74,33 @@ const Events: React.FC = () => {
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Events" }]} />
-      <SimpleGrid spacing="6" m="6" minChildWidth="350px">
-        {data.events?.map((event: EventProps) => (
-          <EventItem key={event.id.toString()} event={event} />
-        ))}
-      </SimpleGrid>
+
+      <FilterSection
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        filterOption={filterOption}
+        setFilterOption={setFilterOption}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        sortOptions={[
+          { value: "name_asc", label: "Name ascending" },
+          { value: "name_desc", label: "Name descending" },
+          { value: "nearest", label: "Date ascending" },
+          { value: "furthest", label: "Date descending" },
+        ]}
+      />
+
+      {filteredEvents.length === 0 ? (
+        <Text align={"center"}>
+          Sorry, no results found! Try resetting any filters.
+        </Text>
+      ) : (
+        <SimpleGrid spacing="6" m="6" minChildWidth="350px">
+          {filteredEvents.map((event: EventProps) => (
+            <EventItem key={event.id.toString()} event={event} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 };
@@ -80,7 +114,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
     borderColor="gray.200"
     _hover={{ bg: "gray.100" }}
   >
-    <Image src={event.performers[0].image} />
+    <Image src={event.performers[0].image} alt={`${event.short_title}`} />
 
     <CardBody>
       <Stack spacing="2">
@@ -105,7 +139,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
           <Text fontSize="sm" color="gray.600">
             {event.venue.name_v2}
           </Text>
-          <Text fontSize="sm" color="gray.600">
+          <Text fontSize="sm" color="gray.600" data-testid="event-location">
             {event.venue.display_location}
           </Text>
         </Box>
@@ -115,7 +149,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
           color="gray.600"
           justifySelf={"end"}
         >
-          {formatDateTime(event.datetime_utc)}
+          {formatDateTime(event.datetime_utc, event.venue.timezone)}
         </Text>
       </Stack>
     </CardBody>

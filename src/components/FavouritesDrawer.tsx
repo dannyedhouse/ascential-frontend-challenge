@@ -73,12 +73,15 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
                         <ListItem key={item.id} p={1}>
                           <Flex justify="space-between" align="left">
                             <Button
+                              textDecoration="underline"
+                              colorScheme="black"
                               variant="link"
                               onClick={() => onNavigate(item.id, "event")}
                             >
-                              <Text isTruncated> {item.name}</Text>
+                              <Text isTruncated>{item.name}</Text>
                             </Button>
                             <IconButton
+                              isRound
                               onClick={() => removeFavourite(item.id)}
                               icon={<DeleteIcon />}
                               aria-label={"Remove favourite"}
@@ -96,15 +99,18 @@ const FavouritesDrawer: React.FC<DrawerProps> = ({
                   ) : (
                     <List gap={2}>
                       {venueFavourites.map((item) => (
-                        <ListItem key={item.id}>
+                        <ListItem key={item.id} p={1}>
                           <Flex justify="space-between" align="left">
                             <Button
+                              textDecoration="underline"
+                              colorScheme="black"
                               variant="link"
                               onClick={() => onNavigate(item.id, "venue")}
                             >
-                              {item.name}
+                              <Text isTruncated>{item.name}</Text>
                             </Button>
                             <IconButton
+                              isRound
                               onClick={() => removeFavourite(item.id)}
                               icon={<DeleteIcon />}
                               aria-label={"Remove favourite"}
