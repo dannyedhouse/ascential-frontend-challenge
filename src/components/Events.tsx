@@ -149,7 +149,7 @@ const EventItem: React.FC<EventItemProps> = ({ event }) => (
           color="gray.600"
           justifySelf={"end"}
         >
-          {formatDateTime(event.datetime_utc)}
+          {formatDateTime(event.datetime_utc, event.venue.timezone)}
         </Text>
       </Stack>
     </CardBody>
