@@ -1,10 +1,22 @@
 import React from 'react';
-import { SimpleGrid, Flex, Spinner, Heading, Text, Box, Badge, LinkBox, LinkOverlay } from '@chakra-ui/react';
-import { Link as BrowserLink } from 'react-router-dom';
-import { useSeatGeek } from '../utils/useSeatGeek';
-import Error from './Error';
-import Breadcrumbs from './Breadcrumbs';
+import {
+  SimpleGrid,
+  Flex,
+  Spinner,
+  Heading,
+  Text,
+  Box,
+  Badge,
+  LinkBox,
+  LinkOverlay,
+} from "@chakra-ui/react";
+import { Link as BrowserLink } from "react-router-dom";
+import { useSeatGeek } from "../utils/useSeatGeek";
+import Error from "./Error";
+import Breadcrumbs from "./Breadcrumbs";
 import FavouritesButton from "./FavouritesButton";
+import useFilteredVenues from "../hooks/useFilteredVenues";
+import FilterSection from "./FilterSection";
 
 export interface VenueProps {
   id: number;
@@ -24,6 +36,16 @@ const Venues: React.FC = () => {
     per_page: "24",
   });
 
+  const {
+    filteredVenues,
+    searchQuery,
+    setSearchQuery,
+    filterOption,
+    setFilterOption,
+    sortOption,
+    setSortOption,
+  } = useFilteredVenues(data?.venues);
+
   if (error) return <Error />;
 
   if (!data) {
@@ -37,11 +59,32 @@ const Venues: React.FC = () => {
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Venues" }]} />
-      <SimpleGrid spacing="6" m="6" minChildWidth="350px">
-        {data.venues?.map((venue: VenueProps) => (
-          <VenueItem key={venue.id.toString()} venue={venue} />
-        ))}
-      </SimpleGrid>
+      <FilterSection
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        filterOption={filterOption}
+        setFilterOption={setFilterOption}
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        sortOptions={[
+          { value: "name_asc", label: "Name ascending" },
+          { value: "name_desc", label: "Name descending" },
+          { value: "num_events_desc", label: "Most upcoming events" },
+          { value: "num_events_asc", label: "Least upcoming events" },
+        ]}
+      />
+
+      {filteredVenues.length === 0 ? (
+        <Text align={"center"}>
+          Sorry, no results found! Try resetting any filters.
+        </Text>
+      ) : (
+        <SimpleGrid spacing="6" m="6" minChildWidth="350px">
+          {filteredVenues.map((venue: VenueProps) => (
+            <VenueItem key={venue.id.toString()} venue={venue} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 };
